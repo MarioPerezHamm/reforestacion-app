@@ -1,9 +1,37 @@
-import { supabase } from '@/lib/supabase'
-import { Calendar, CheckCircle2 } from 'lucide-react'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
+import { Calendar, CheckCircle2, AlertTriangle } from 'lucide-react'
 
 export const revalidate = 3600
 
 export default async function Avances() {
+  // Check if Supabase is configured
+  if (!isSupabaseConfigured) {
+    return (
+      <main className="min-h-screen bg-green-950 text-white p-6 md:p-8">
+        <div className="max-w-2xl mx-auto mt-20">
+          <div className="bg-yellow-900/30 backdrop-blur-md border border-yellow-600/50 rounded-2xl p-8 text-center">
+            <AlertTriangle size={48} className="text-yellow-400 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-yellow-200 mb-4">
+              Configuracion Requerida
+            </h1>
+            <p className="text-yellow-300 mb-6">
+              Las variables de entorno de Supabase no estan configuradas.
+            </p>
+            <div className="bg-green-950/50 rounded-lg p-4 text-left">
+              <p className="text-green-300 text-sm mb-2">Agrega estas variables en Settings &gt; Vars:</p>
+              <code className="block text-green-400 text-xs bg-green-900/50 p-2 rounded mb-2">
+                NEXT_PUBLIC_SUPABASE_URL
+              </code>
+              <code className="block text-green-400 text-xs bg-green-900/50 p-2 rounded">
+                NEXT_PUBLIC_SUPABASE_ANON_KEY
+              </code>
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
   const { data: updates } = await supabase
     .from('updates')
     .select('*')
