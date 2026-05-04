@@ -25,27 +25,33 @@ export default async function Dashboard() {
   })) ?? []
 
   return (
-    <main className="min-h-screen bg-green-950 text-white p-6">
-      <h1 className="text-2xl font-bold mb-2 text-green-300">
-        Panel de Monitoreo
-      </h1>
-      <p className="text-green-400 mb-8 text-sm">
-        Condiciones del suelo en tiempo real
-      </p>
+    <main className="min-h-screen bg-green-950 text-white p-6 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-100 mb-2">
+            Panel de Monitoreo
+          </h1>
+          <p className="text-green-400 text-sm md:text-base">
+            Condiciones del suelo en tiempo real
+          </p>
+        </div>
 
-      {/* Tarjetas de sensores */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-        {lastReadings.map(sensor => (
-          <SensorCard key={sensor.id} sensor={sensor} />
-        ))}
-      </div>
+        {/* Tarjetas de sensores */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {lastReadings.map(sensor => (
+            <SensorCard key={sensor.id} sensor={sensor} />
+          ))}
+        </div>
 
-      {/* Gráfica de historial */}
-      <div className="bg-green-900/40 rounded-xl p-4 border border-green-800">
-        <h2 className="text-lg font-semibold mb-4 text-green-300">
-          Historial — Últimas 48 horas
-        </h2>
-        <ReadingsChart data={history ?? []} />
+        {/* Gráfica de historial */}
+        <div className="bg-green-900/30 backdrop-blur-md border border-green-700/50 rounded-2xl p-6 md:p-8">
+          <h2 className="text-xl md:text-2xl font-semibold text-green-100 mb-6">
+            Historial — Últimas 48 horas
+          </h2>
+          <div className="bg-green-950/50 rounded-lg p-4 md:p-6">
+            <ReadingsChart data={history ?? []} />
+          </div>
+        </div>
       </div>
     </main>
   )
