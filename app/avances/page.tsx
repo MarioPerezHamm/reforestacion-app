@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import { Calendar } from 'lucide-react'
+import { Calendar, CheckCircle2 } from 'lucide-react'
 
 export const revalidate = 3600
 
@@ -10,36 +10,60 @@ export default async function Avances() {
     .order('fecha', { ascending: false })
 
   return (
-    <main className="min-h-screen bg-green-950 text-white p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-2 text-green-300">Avances del Proyecto</h1>
-      <p className="text-green-400 text-sm mb-8">
-        Registro de hitos — Fondo Álvaro Ulcué Chocué
-      </p>
+    <main className="min-h-screen bg-green-950 text-white p-6 md:p-8">
+      <div className="max-w-3xl mx-auto">
+        <div className="mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-100 mb-2">
+            Avances del Proyecto
+          </h1>
+          <p className="text-green-400 text-sm md:text-base">
+            Registro de hitos — Fondo Álvaro Ulcué Chocué
+          </p>
+        </div>
 
-      <div className="relative">
-        <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-green-800" />
+        <div className="space-y-6 relative">
+          {/* Timeline line */}
+          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-600 to-green-800" />
 
-        <div className="space-y-8">
-          {updates?.map((u) => (
-            <div key={u.id} className="pl-12 relative">
-              <div className="absolute left-0 w-8 h-8 bg-green-700 rounded-full flex items-center justify-center border-2 border-green-500">
-                <div className="w-2 h-2 bg-green-300 rounded-full" />
+          {updates?.map((update, index) => (
+            <div key={update.id} className="relative pl-20 md:pl-24">
+              {/* Timeline dot */}
+              <div className="absolute -left-3 md:-left-4 top-1 w-7 h-7 bg-green-900 border-2 border-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-900/50">
+                <CheckCircle2 size={16} className="text-green-300" />
               </div>
-              <div className="bg-green-900/40 border border-green-800 rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-2">
+
+              {/* Update card */}
+              <div className="group bg-green-900/30 backdrop-blur-md border border-green-700/50 hover:border-green-600/80 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-green-900/30">
+                {/* Date badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-2 bg-green-800/50 backdrop-blur-sm rounded-lg mb-3">
                   <Calendar size={14} className="text-green-400" />
-                  <span className="text-xs text-green-400">
-                    {new Date(u.fecha).toLocaleDateString('es-CO', {
-                      year: 'numeric', month: 'long', day: 'numeric'
+                  <span className="text-xs font-medium text-green-300">
+                    {new Date(update.fecha).toLocaleDateString('es-CO', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
                     })}
                   </span>
                 </div>
-                <h3 className="font-semibold text-green-100 mb-1">{u.titulo}</h3>
-                <p className="text-green-300 text-sm leading-relaxed">{u.descripcion}</p>
+
+                {/* Title and description */}
+                <h3 className="text-lg md:text-xl font-bold text-green-100 mb-2 group-hover:text-green-50 transition-colors">
+                  {update.titulo}
+                </h3>
+                <p className="text-green-300 text-sm md:text-base leading-relaxed">
+                  {update.descripcion}
+                </p>
               </div>
             </div>
           ))}
         </div>
+
+        {(!updates || updates.length === 0) && (
+          <div className="bg-green-900/30 backdrop-blur-md border border-green-700/50 rounded-2xl p-8 text-center">
+            <Calendar size={32} className="text-green-600 mx-auto mb-4" />
+            <p className="text-green-400">No hay avances registrados aún</p>
+          </div>
+        )}
       </div>
     </main>
   )
