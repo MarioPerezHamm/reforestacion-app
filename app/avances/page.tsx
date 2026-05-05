@@ -1,5 +1,5 @@
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
-import { Calendar, CheckCircle2, AlertTriangle, Milestone, Clock } from 'lucide-react'
+import { Calendar, CheckCircle2, AlertTriangle, Milestone, Clock, TreePine } from 'lucide-react'
 
 export const revalidate = 3600
 
@@ -93,28 +93,50 @@ export default async function Avances() {
                     </div>
 
                     {/* Update Card */}
-                    <div className="group bg-card border border-border hover:border-primary/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
-                      {/* Date Badge */}
-                      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-4">
-                        <Calendar size={14} className="text-primary" />
-                        <span className="text-xs font-medium text-primary">
-                          {new Date(update.fecha).toLocaleDateString('es-CO', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                          })}
-                        </span>
+                    <div className="group relative bg-card border border-border hover:border-primary/30 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                      {/* Phase Badge */}
+                      <div className="absolute top-3 right-3 z-10 text-xs font-semibold bg-green-600/90 text-white px-3 py-1 rounded-full backdrop-blur-sm">
+                        Fase {index + 1}
                       </div>
 
-                      {/* Title */}
-                      <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {update.titulo}
-                      </h3>
+                      {/* Photo or Placeholder */}
+                      {update.imagen_url ? (
+                        <img
+                          src={update.imagen_url}
+                          className="w-full h-52 object-cover rounded-t-xl mb-0"
+                          alt={update.titulo}
+                          style={{ display: 'block' }}
+                        />
+                      ) : (
+                        <div className="w-full h-32 bg-green-900/60 rounded-t-xl flex items-center justify-center">
+                          <TreePine size={36} className="text-green-700" />
+                        </div>
+                      )}
 
-                      {/* Description */}
-                      <p className="text-muted-foreground leading-relaxed">
-                        {update.descripcion}
-                      </p>
+                      {/* Content */}
+                      <div className="p-6">
+                        {/* Date Badge */}
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                          <Calendar size={14} className="text-primary" />
+                          <span className="text-xs font-medium text-primary">
+                            {new Date(update.fecha).toLocaleDateString('es-CO', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                          </span>
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          {update.titulo}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-muted-foreground leading-relaxed">
+                          {update.descripcion}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}
