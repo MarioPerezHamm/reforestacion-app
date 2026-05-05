@@ -71,3 +71,62 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
 }
+
+/* Hero animations */
+@keyframes forest-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes hero-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoom-aggressive {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes overlay-darken {
+  0% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.forest-background {
+  background-image: url('https://xvowblgvqmlfzjgvfbip.supabase.co/storage/v1/object/public/Imagenes_FAUC/bosque.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  animation: forest-zoom 8s ease-in-out infinite alternate;
+}
+
+.hero-content {
+  animation: hero-fade-in 1s ease-out 0.5s both;
+}
+
+.forest-background.zoom-in {
+  animation: zoom-aggressive 600ms ease-in forwards !important;
+}
+
+.overlay-darken {
+  animation: overlay-darken 500ms ease-in forwards;
+}
