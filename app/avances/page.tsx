@@ -1,30 +1,35 @@
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
-import { Calendar, CheckCircle2, AlertTriangle } from 'lucide-react'
+import { Calendar, CheckCircle2, AlertTriangle, Milestone, Clock } from 'lucide-react'
 
 export const revalidate = 3600
 
 export default async function Avances() {
-  // Check if Supabase is configured
   if (!isSupabaseConfigured) {
     return (
-      <main className="min-h-screen bg-green-950 text-white p-6 md:p-8">
-        <div className="max-w-2xl mx-auto mt-20">
-          <div className="bg-yellow-900/30 backdrop-blur-md border border-yellow-600/50 rounded-2xl p-8 text-center">
-            <AlertTriangle size={48} className="text-yellow-400 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-yellow-200 mb-4">
+      <main className="min-h-screen bg-background text-foreground p-4 sm:p-6 md:p-8">
+        <div className="max-w-2xl mx-auto mt-12 md:mt-20">
+          <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-8 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-500/10 border border-amber-500/20 rounded-2xl mb-6">
+              <AlertTriangle size={32} className="text-amber-400" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground mb-4">
               Configuracion Requerida
             </h1>
-            <p className="text-yellow-300 mb-6">
+            <p className="text-muted-foreground mb-8">
               Las variables de entorno de Supabase no estan configuradas.
             </p>
-            <div className="bg-green-950/50 rounded-lg p-4 text-left">
-              <p className="text-green-300 text-sm mb-2">Agrega estas variables en Settings &gt; Vars:</p>
-              <code className="block text-green-400 text-xs bg-green-900/50 p-2 rounded mb-2">
-                NEXT_PUBLIC_SUPABASE_URL
-              </code>
-              <code className="block text-green-400 text-xs bg-green-900/50 p-2 rounded">
-                NEXT_PUBLIC_SUPABASE_ANON_KEY
-              </code>
+            <div className="bg-card rounded-xl p-6 text-left border border-border">
+              <p className="text-sm text-muted-foreground mb-4">
+                Agrega estas variables en <span className="text-foreground font-medium">Settings &gt; Vars</span>:
+              </p>
+              <div className="space-y-3">
+                <code className="block text-sm text-primary bg-primary/5 border border-primary/10 px-4 py-3 rounded-lg font-mono">
+                  NEXT_PUBLIC_SUPABASE_URL
+                </code>
+                <code className="block text-sm text-primary bg-primary/5 border border-primary/10 px-4 py-3 rounded-lg font-mono">
+                  NEXT_PUBLIC_SUPABASE_ANON_KEY
+                </code>
+              </div>
             </div>
           </div>
         </div>
@@ -38,58 +43,79 @@ export default async function Avances() {
     .order('fecha', { ascending: false })
 
   return (
-    <main className="min-h-screen bg-green-950 text-white p-6 md:p-8">
-      <div className="max-w-3xl mx-auto">
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        {/* Header */}
         <div className="mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-200 to-green-100 mb-2">
-            Avances del Proyecto
-          </h1>
-          <p className="text-green-400 text-sm md:text-base">
-            Registro de hitos — Fondo Álvaro Ulcué Chocué
-          </p>
-        </div>
-
-        <div className="space-y-6 relative">
-          {/* Timeline line */}
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-600 to-green-800" />
-
-          {updates?.map((update, index) => (
-            <div key={update.id} className="relative pl-20 md:pl-24">
-              {/* Timeline dot */}
-              <div className="absolute -left-3 md:-left-4 top-1 w-7 h-7 bg-green-900 border-2 border-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-900/50">
-                <CheckCircle2 size={16} className="text-green-300" />
-              </div>
-
-              {/* Update card */}
-              <div className="group bg-green-900/30 backdrop-blur-md border border-green-700/50 hover:border-green-600/80 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-green-900/30">
-                {/* Date badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-2 bg-green-800/50 backdrop-blur-sm rounded-lg mb-3">
-                  <Calendar size={14} className="text-green-400" />
-                  <span className="text-xs font-medium text-green-300">
-                    {new Date(update.fecha).toLocaleDateString('es-CO', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </span>
-                </div>
-
-                {/* Title and description */}
-                <h3 className="text-lg md:text-xl font-bold text-green-100 mb-2 group-hover:text-green-50 transition-colors">
-                  {update.titulo}
-                </h3>
-                <p className="text-green-300 text-sm md:text-base leading-relaxed">
-                  {update.descripcion}
-                </p>
-              </div>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center justify-center w-10 h-10 bg-primary/10 border border-primary/20 rounded-xl">
+              <Milestone size={20} className="text-primary" />
             </div>
-          ))}
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+                Avances del Proyecto
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Fondo Alvaro Ulcue Chocue
+              </p>
+            </div>
+          </div>
         </div>
 
-        {(!updates || updates.length === 0) && (
-          <div className="bg-green-900/30 backdrop-blur-md border border-green-700/50 rounded-2xl p-8 text-center">
-            <Calendar size={32} className="text-green-600 mx-auto mb-4" />
-            <p className="text-green-400">No hay avances registrados aún</p>
+        {/* Timeline */}
+        {updates && updates.length > 0 ? (
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-5 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/50 to-border" />
+
+            <div className="space-y-8">
+              {updates.map((update, index) => (
+                <div key={update.id} className="relative pl-14 md:pl-16">
+                  {/* Timeline Dot */}
+                  <div className="absolute left-0 top-0 flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-primary/30 rounded-full blur-md" />
+                      <div className="relative w-10 h-10 md:w-12 md:h-12 bg-card border-2 border-primary rounded-full flex items-center justify-center shadow-lg">
+                        <CheckCircle2 size={18} className="text-primary" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Update Card */}
+                  <div className="group bg-card border border-border hover:border-primary/30 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5">
+                    {/* Date Badge */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                      <Calendar size={14} className="text-primary" />
+                      <span className="text-xs font-medium text-primary">
+                        {new Date(update.fecha).toLocaleDateString('es-CO', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {update.titulo}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-muted-foreground leading-relaxed">
+                      {update.descripcion}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="bg-card border border-border rounded-2xl p-12 text-center">
+            <div className="w-16 h-16 bg-muted/30 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Clock size={32} className="text-muted-foreground/50" />
+            </div>
+            <h3 className="text-lg font-semibold text-foreground mb-2">No hay avances registrados</h3>
+            <p className="text-muted-foreground text-sm">Los avances del proyecto apareceran aqui</p>
           </div>
         )}
       </div>
