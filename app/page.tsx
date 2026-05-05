@@ -1,68 +1,12 @@
 import Link from 'next/link'
 import { Leaf, Droplets, Thermometer, TreePine, ArrowRight, Sprout, Target, Zap } from 'lucide-react'
+import HeroSection from '@/components/HeroSection'
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        </div>
-        
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-32 lg:py-40">
-          <div className="flex flex-col items-center text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-8">
-              <Sprout size={16} className="text-primary" />
-              <span className="text-sm font-medium text-primary">Proyecto Ambiental</span>
-            </div>
-
-            {/* Icon */}
-            <div className="relative mb-8">
-              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-2xl" />
-              <div className="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/20 to-card border border-primary/30 rounded-3xl">
-                <TreePine size={40} className="text-primary" />
-              </div>
-            </div>
-
-            {/* Heading */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight max-w-4xl mb-6">
-              <span className="text-foreground">Reforestacion del</span>
-              <br />
-              <span className="text-primary">medio ambiente</span>
-            </h1>
-
-            {/* Subheading */}
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-4 leading-relaxed">
-              Un legado para las generaciones venideras
-            </p>
-            <p className="text-sm text-muted-foreground/70 mb-10">
-              Fondo Alvaro Ulcue Chocue
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/dashboard"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary hover:bg-accent text-primary-foreground font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
-              >
-                Ver Dashboard
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="/avances"
-                className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-card hover:bg-secondary/50 text-foreground font-semibold rounded-xl border border-border hover:border-primary/50 transition-all duration-200"
-              >
-                Ver Avances
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section with cinematic forest */}
+      <HeroSection />
 
       {/* Stats Section */}
       <section className="py-16 md:py-24 border-t border-border">
